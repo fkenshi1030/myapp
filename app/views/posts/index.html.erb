@@ -1,17 +1,12 @@
-<h2>
-  <%= link_to 'Add New', new_post_path, class: 'header-menu' %>
-  My Posts
-</h2>
-<ul>
-<% @posts.each do |post| %>
-<li>
-<%= link_to post.title, post_path(post) %>
-<%= link_to '[Edit]', edit_post_path(post), class: 'command' %>
-<%= link_to '[x]',
-  post_path(post),
-  method: :delete,
-  class: 'command',
-  data: { confirm: 'Sure?' } %>
-</li>
+<h1>ホーム</h1>
+
+<% if user_signed_in? %> <!--ユーザーがログインしているか調べる-->
+  <h4>
+    メールアドレス：<%= current_user.email %> <!--current_user.カラム名-->
+  </h4>
+  <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+<% else %>
+  <h2>現在ログインしていません</h2>
+  <%= link_to "ログイン", new_user_session_path, class: :post %> <!--ログイン画面へ移動する-->
+  <%= link_to "新規登録", new_user_registration_path, class: :post %> <!--新規登録画面へ移動する-->
 <% end %>
-</ul>
